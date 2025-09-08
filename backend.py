@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-from chatbot_logic import responder
+from chatbot_logic import responder, analizar_texto
 
 app = Flask(__name__)
 CORS(app)
@@ -14,6 +14,13 @@ def chat():
     mensaje = data.get('mensaje', '')
     respuesta = responder(mensaje, estado)
     return jsonify({'respuesta': respuesta})
+
+@app.route('/analisis', methods=['POST'])
+def analisis():
+    data = request.get_json()
+    texto = data.get('mensaje', '')
+    resultado = analizar_texto(texto)
+    return jsonify({'analisis': resultado})
 
 @app.route('/')
 def home():

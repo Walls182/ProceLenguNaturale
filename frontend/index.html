@@ -3,37 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <title>Chatbot PLN</title>
-    <link rel="stylesheet" href="styles.css">
     <style>
         body { font-family: Arial, sans-serif; background: #f4f4f4; }
-        .chatbox { width: 400px; margin: 50px auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 8px #ccc; }
+        .container { display: flex; justify-content: center; gap: 30px; margin-top: 40px; }
+        .chatbox, .analysisbox { width: 400px; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 8px #ccc; }
         #chatlog { height: 300px; overflow-y: auto; border: 1px solid #ccc; margin-bottom: 10px; padding: 10px; background: #faf6ff; }
         .user { color: #a259d9; background: #e9d6fa; padding: 5px; border-radius: 5px; margin: 5px 0; }
         .bot { color: #6c3483; background: #f3e6fa; padding: 5px; border-radius: 5px; margin: 5px 0; }
         #userInput { width: 75%; padding: 8px; border-radius: 5px; border: 1px solid #ccc; }
         button { padding: 8px 16px; border-radius: 5px; border: none; background: #a259d9; color: #fff; font-weight: bold; cursor: pointer; }
         button:hover { background: #6c3483; }
+        #analysis { font-size: 14px; white-space: pre; background: #f3e6fa; color: #6c3483; border-radius: 5px; padding: 10px; min-height: 300px; }
+        .analysisbox h3 { color: #a259d9; margin-bottom: 10px; }
     </style>
 </head>
 <body>
-    <div class="chatbox">
-        <div id="chatlog"></div>
-        <input type="text" id="userInput" placeholder="Escribe tu mensaje...">
-        <button onclick="sendMessage()">Enviar</button>
+    <div class="container">
+        <div class="chatbox">
+            <div id="chatlog"></div>
+            <input type="text" id="userInput" placeholder="Escribe tu mensaje...">
+            <button onclick="sendMessage()">Enviar</button>
+        </div>
+        <div class="analysisbox">
+            <h3>Análisis Lingüístico</h3>
+            <div id="analysis">Escribe para ver el análisis...</div>
+        </div>
     </div>
     <script>
         const input = document.getElementById('userInput');
         input.addEventListener('keydown', function(e) {
-            if (e.key === 'Enter') {
-                sendMessage();
-            }
+            if (e.key === 'Enter') sendMessage();
+            setTimeout(updateAnalysis, 10); // Actualiza análisis en tiempo real
         });
+        input.addEventListener('input', updateAnalysis);
 
         function sendMessage() {
             const message = input.value.trim();
             if (!message) return;
             addMessage('Tú', message, 'user');
             input.value = '';
+            updateAnalysis();
             fetch('http://localhost:5000/chat', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -47,6 +56,29 @@
             const chatlog = document.getElementById('chatlog');
             chatlog.innerHTML += `<div class="${cls}"><b>${sender}:</b> ${text}</div>`;
             chatlog.scrollTop = chatlog.scrollHeight;
+        }
+
+        function updateAnalysis() {
+            const message = input.value.trim();
+            if (!message) {
+                document.getElementById('analysis').textContent = "Escribe para ver el análisis...";
+                return;
+            }
+            fetch('http://localhost:5000/analisis', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ mensaje: message })
+            })
+            .then(res => res.json())
+            .then(data => {
+                const analisis = data.analisis;
+                let tabla = "Palabra\tLema\tPOS\n";
+                tabla += "-".repeat(32) + "\n";
+                analisis.forEach(token => {
+                    tabla += `${token.texto}\t${token.lema}\t${token.pos}\n`;
+                });
+                document.getElementById('analysis').textContent = tabla;
+            });
         }
     </script>
 </body>
