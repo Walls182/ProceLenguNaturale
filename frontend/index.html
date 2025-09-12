@@ -4,17 +4,113 @@
     <meta charset="UTF-8">
     <title>Chatbot PLN</title>
     <style>
-        body { font-family: Arial, sans-serif; background: #f4f4f4; }
-        .container { display: flex; justify-content: center; gap: 30px; margin-top: 40px; }
-        .chatbox, .analysisbox { width: 400px; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 8px #ccc; }
-        #chatlog { height: 300px; overflow-y: auto; border: 1px solid #ccc; margin-bottom: 10px; padding: 10px; background: #faf6ff; }
-        .user { color: #a259d9; background: #e9d6fa; padding: 5px; border-radius: 5px; margin: 5px 0; }
-        .bot { color: #6c3483; background: #f3e6fa; padding: 5px; border-radius: 5px; margin: 5px 0; }
-        #userInput { width: 75%; padding: 8px; border-radius: 5px; border: 1px solid #ccc; }
-        button { padding: 8px 16px; border-radius: 5px; border: none; background: #a259d9; color: #fff; font-weight: bold; cursor: pointer; }
-        button:hover { background: #6c3483; }
-        #analysis { font-size: 14px; white-space: pre; background: #f3e6fa; color: #6c3483; border-radius: 5px; padding: 10px; min-height: 300px; }
-        .analysisbox h3 { color: #a259d9; margin-bottom: 10px; }
+        body {
+            font-family: Arial, sans-serif;
+            background: url('bg.jpg') no-repeat center center fixed;
+            background-size: cover;
+            margin: 0;
+            min-height: 100vh;
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 60px;
+        }
+        .chatbox, .analysisbox {
+            width: 540px;
+            background: rgba(255,255,255,0.85);
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(100,0,150,0.18);
+            backdrop-filter: blur(4px);
+            transition: box-shadow 0.3s;
+        }
+        .chatbox:hover, .analysisbox:hover {
+            box-shadow: 0 16px 48px rgba(100,0,150,0.28);
+        }
+        #chatlog {
+            height: 420px;
+            overflow-y: auto;
+            border: 1px solid #ccc;
+            margin-bottom: 16px;
+            padding: 14px;
+            background: #faf6ff;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px #e9d6fa;
+            transition: background 0.3s;
+        }
+        .user {
+            color: #a259d9;
+            background: #e9d6fa;
+            padding: 7px;
+            border-radius: 7px;
+            margin: 7px 0;
+            font-size: 17px;
+            box-shadow: 0 1px 4px #d1b3e6;
+            transition: background 0.3s;
+        }
+        .bot {
+            color: #6c3483;
+            background: #f3e6fa;
+            padding: 7px;
+            border-radius: 7px;
+            margin: 7px 0;
+            font-size: 17px;
+            box-shadow: 0 1px 4px #d1b3e6;
+            transition: background 0.3s;
+        }
+        #userInput {
+            width: 78%;
+            padding: 10px;
+            border-radius: 7px;
+            border: 1px solid #ccc;
+            font-size: 17px;
+            margin-right: 8px;
+            transition: border 0.3s;
+        }
+        #userInput:focus {
+            border: 1.5px solid #a259d9;
+            outline: none;
+        }
+        button {
+            padding: 10px 22px;
+            border-radius: 7px;
+            border: none;
+            background: linear-gradient(90deg, #a259d9 0%, #6c3483 100%);
+            color: #fff;
+            font-weight: bold;
+            font-size: 17px;
+            cursor: pointer;
+            box-shadow: 0 2px 8px #d1b3e6;
+            transition: background 0.3s, transform 0.2s;
+        }
+        button:hover {
+            background: linear-gradient(90deg, #6c3483 0%, #a259d9 100%);
+            transform: scale(1.07);
+        }
+        #analysis {
+            font-size: 16px;
+            white-space: pre;
+            background: #f3e6fa;
+            color: #6c3483;
+            border-radius: 8px;
+            padding: 16px;
+            min-height: 420px;
+            box-shadow: 0 2px 8px #d1b3e6;
+            transition: background 0.3s;
+        }
+        .analysisbox h3 {
+            color: #a259d9;
+            margin-bottom: 14px;
+            font-size: 22px;
+            letter-spacing: 1px;
+            text-shadow: 0 1px 2px #fff;
+        }
+        @media (max-width: 1200px) {
+            .container { flex-direction: column; align-items: center; }
+            .chatbox, .analysisbox { width: 95vw; max-width: 600px; margin-bottom: 30px; }
+        }
     </style>
 </head>
 <body>

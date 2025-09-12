@@ -1,0 +1,61 @@
+# Chatbot PLN (Procesamiento de Lenguaje Natural)
+
+Este proyecto es un chatbot web con análisis lingüístico en tiempo real, desarrollado en Python (Flask) para el backend y HTML/CSS/JavaScript para el frontend.
+
+## Características
+
+- Chatbot temático sobre anime y conversación general.
+- Análisis en tiempo real de tokenización, lematización y POS tagging usando spaCy y NLTK.
+- Interfaz web amigable y moderna.
+- Backend API en Flask.
+
+## Instalación
+
+1. **Clona el repositorio:**
+   ```
+   git clone https://github.com/tuusuario/tu-repo.git
+   cd tu-repo
+   ```
+
+2. **Instala los requisitos:**
+   ```
+   pip install -r requirements.txt
+   python -m spacy download es_core_news_sm
+   ```
+
+3. **Ejecuta el backend:**
+   ```
+   python backend.py
+   ```
+
+4. **Abre el frontend:**
+   - Ve a la carpeta `frontend` y abre `index.html` en tu navegador.
+
+## Uso
+
+- Escribe un saludo para iniciar la conversación.
+- Interactúa con el chatbot sobre anime, recomendaciones, personajes, etc.
+- Observa el análisis lingüístico en tiempo real en la caja lateral.
+
+## Estructura del proyecto
+
+```
+PNL/
+│
+├── backend.py
+├── chatbot_logic.py
+├── requirements.txt
+├── README.md
+├── frontend/
+│   ├── index.html
+│   └── (archivos de estilos y scripts)
+```
+
+## Referencias
+
+- [spaCy](https://spacy.io/)
+- [NLTK](https://www.nltk.org/)
+- [Flask](https://flask.palletsprojects.com/)
+- [PyPI](https://pypi.org/)
+
+---
