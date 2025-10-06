@@ -1,0 +1,35 @@
+# Dependencias básicas del chatbot
+flask==3.0.0
+flask-cors==4.0.0
+nltk==3.8.1
+spacy==3.7.2
+
+# Modelo de español para spaCy
+# Instalar con: python -m spacy download es_core_news_sm
+
+# === ANÁLISIS DE SENTIMIENTOS ===
+# Para activar análisis de sentimientos, instalar:
+pysentimiento==0.7.0
+
+# === MODELO LLM (OPCIONAL - Requiere GPU/mucha RAM) ===
+# Para activar el modelo Gemma, instalar:
+# transformers==4.36.0
+# torch==2.1.0
+# huggingface-hub==0.20.0
+
+# === UTILIDADES ===
+python-dotenv==1.0.0
+
+# === NOTAS DE INSTALACIÓN ===
+# 
+# Instalación básica (sin IA avanzada):
+#   pip install flask flask-cors nltk spacy pysentimiento python-dotenv
+#   python -m spacy download es_core_news_sm
+#
+# Instalación completa (con LLM - requiere ~5GB RAM):
+#   pip install flask flask-cors nltk spacy pysentimiento transformers torch huggingface-hub python-dotenv
+#   python -m spacy download es_core_news_sm
+#
+# Para sistemas con GPU (recomendado para LLM):
+#   pip install torch --index-url https://download.pytorch.org/whl/cu118
+#
